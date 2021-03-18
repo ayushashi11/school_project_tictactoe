@@ -1,11 +1,14 @@
 import alg
+from colorama import init
 from math import ceil
 import mysql.connector as msc
+init()
 conn = msc.connect(
-    host="localhost",
-    user="root",
-    passwd="password",
-    database="tictactoe"
+    host="remotemysql.com",
+    port=3306,
+    user="M5cFwEtm4A",
+    passwd="uXxbWK9ZD5",
+    database="M5cFwEtm4A"
     )
 
 if not conn.is_connected():
@@ -21,10 +24,6 @@ curs.execute(
         win_time timestamp default now()
     )"""
     )
-
-#curs.execute("insert into scores(name, score) values('god', 64)")
-#curs.execute("insert into scores(name, score) values('loser', 0)")
-#conn.commit()
 
 def get_scores(PAGE=1):
     curs.execute("select * from scores order by score DESC, win_time")
@@ -95,8 +94,14 @@ def main():
                         X| |
                 >>> 
                 you have to type the indices of the matrix where you want to place your O
+                the indices are as follows
+                        0|1|2
+                        -----
+                        3|4|5
+                        -----
+                        6|7|8
                 like typing
-                >>> 0 1
+                >>> 1
                 would result in
                         O|O|O
                         -----
